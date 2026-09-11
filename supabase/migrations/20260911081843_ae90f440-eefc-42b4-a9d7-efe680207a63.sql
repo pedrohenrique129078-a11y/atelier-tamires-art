@@ -1,0 +1,2 @@
+CREATE POLICY "No direct access to availability slots" ON public.availability_slots FOR ALL TO anon, authenticated USING (false) WITH CHECK (false);
+CREATE POLICY "No direct access to bookings" ON public.bookings FOR ALL TO anon, authenticated USING (false) WITH CHECK (false);

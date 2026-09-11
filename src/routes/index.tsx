@@ -1,24 +1,38 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight, Crosshair, Heart, ShieldCheck, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { categories, courses } from "@/lib/site-data";
+import heroAsset from "@/assets/tamires-hero.jpg.asset.json";
+import spaAsset from "@/assets/tamires-spa.jpg.asset.json";
+import courseAsset from "@/assets/tamires-course.jpg.asset.json";
+import browAsset from "@/assets/tamires-brow.jpg.asset.json";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({ meta: [{ title: "Tamires Correia — Beleza & Formação" }, { name: "description", content: "Cuidados de beleza premium, SPA, Podocure e formação presencial com Tamires Correia." }, { property: "og:title", content: "Tamires Correia — Beleza & Formação" }, { property: "og:description", content: "Cuidado, precisão e formação presencial em uma experiência premium." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }], links: [{ rel: "canonical", href: "/" }] }),
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+function HomePage() {
+  return <main>
+    <section className="mx-auto grid max-w-7xl items-end gap-8 px-5 pb-12 pt-8 md:grid-cols-12 lg:px-8 lg:pb-16 lg:pt-14">
+      <div className="order-2 md:order-1 md:col-span-5"><p className="animate-soft-enter text-xs font-medium uppercase text-primary">Beleza, cuidado & experiência</p><h1 className="mt-5 animate-soft-enter text-5xl leading-[.96] md:text-7xl" style={{animationDelay:"80ms"}}>Seu cuidado começa nos detalhes.</h1><p className="mt-6 max-w-md animate-soft-enter leading-7 text-muted-foreground" style={{animationDelay:"160ms"}}>Tamires Correia reúne atendimento de beleza e formação presencial em uma experiência cuidadosa, precisa e acolhedora.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><Button asChild variant="editorial" size="lg"><Link to="/agendar">Agendar horário <ArrowUpRight/></Link></Button><Button asChild variant="quiet" size="lg"><Link to="/servicos">Conhecer serviços</Link></Button></div></div>
+      <div className="order-1 md:order-2 md:col-span-7"><img src={heroAsset.url} alt="Mãos com manicure natural em composição editorial" width={1280} height={1024} fetchPriority="high" className="aspect-[5/4] w-full object-cover"/></div>
+    </section>
+
+    <section className="border-y border-border"><div className="mx-auto grid max-w-7xl gap-9 px-5 py-12 md:grid-cols-12 lg:px-8"><div className="md:col-span-5"><p className="text-xs font-medium uppercase text-primary">Além do procedimento</p><h2 className="mt-4 text-4xl leading-tight">Uma experiência pensada do primeiro contato ao último detalhe.</h2></div><div className="grid gap-6 sm:grid-cols-2 md:col-span-7"><Pillar icon={<Heart/>} title="Cuidado" text="Atendimento atento às escolhas e necessidades de cada cliente."/><Pillar icon={<Crosshair/>} title="Precisão" text="Cada etapa é conduzida com atenção e organização."/><Pillar icon={<ShieldCheck/>} title="Qualidade" text="Uma estrutura preparada para informações reais e transparentes."/><Pillar icon={<Sparkles/>} title="Experiência" text="Do agendamento ao atendimento, tudo permanece claro e acolhedor."/></div></div></section>
+
+    <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24"><div className="grid gap-10 md:grid-cols-12"><div className="md:col-span-4"><p className="text-xs font-medium uppercase text-primary">Serviços</p><h2 className="mt-4 text-4xl md:text-5xl">Um cuidado para cada momento.</h2><p className="mt-5 leading-7 text-muted-foreground">Cinco áreas organizadas para receber o catálogo real de serviços, valores e durações.</p></div><div className="grid gap-px bg-border sm:grid-cols-2 md:col-span-8">{categories.map((category,index)=><Link key={category.slug} to="/agendar" search={{tipo:"servico",categoria:category.slug}} className={`${index===0?"sm:col-span-2 bg-secondary/50":"bg-background"} group min-h-44 p-6 hover:bg-secondary/30`}><span className="text-xs text-primary">0{index+1}</span><h3 className="mt-6 text-2xl">{category.name}</h3><p className="mt-3 max-w-sm text-sm text-muted-foreground">{category.description}</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-medium">Ver serviços <ArrowUpRight className="size-4 transition group-hover:translate-x-1"/></span></Link>)}</div></div></section>
+
+    <section className="bg-ink text-cream"><div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-12 lg:px-8 lg:py-20"><div className="md:col-span-5"><p className="text-xs font-medium uppercase text-blush">SPA Alto Padrão & Podocure</p><h2 className="mt-4 text-4xl md:text-5xl">Cuidado especializado. Pausa verdadeira.</h2><p className="mt-6 leading-7 text-cream/65">Duas experiências com identidades próprias: precisão, higiene e conforto no Podocure; relaxamento e autocuidado no SPA.</p><Button asChild variant="rose" size="lg" className="mt-8"><Link to="/servicos">Conhecer as categorias</Link></Button></div><div className="md:col-span-7"><img src={spaAsset.url} alt="Composição sensorial para SPA dos pés" width={1024} height={832} loading="lazy" className="aspect-[5/4] w-full object-cover"/></div></div></section>
+
+    <section className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-12 lg:px-8 lg:py-24"><div className="md:col-span-6"><img src={courseAsset.url} alt="Formação prática em manicure" width={1024} height={832} loading="lazy" className="aspect-[5/4] w-full object-cover"/></div><div className="self-center md:col-span-6"><p className="text-xs font-medium uppercase text-primary">Formação & Especialização</p><h2 className="mt-4 text-4xl md:text-5xl">Aprenda ao lado de quem aplica.</h2><p className="mt-5 max-w-xl leading-7 text-muted-foreground">Cursos presenciais, individuais ou em grupo, com prática e conteúdo já organizados para agendamento.</p><div className="mt-7 border-y border-border">{courses.slice(0,3).map(([name,,duration],index)=><div key={name} className="grid grid-cols-[auto_minmax(0,1fr)] gap-4 border-b border-border py-4 last:border-0"><span className="text-xs text-primary">0{index+1}</span><div><h3 className="font-sans text-base font-medium">{name}</h3><p className="mt-1 text-xs text-muted-foreground">{duration}</p></div></div>)}</div><Button asChild variant="editorial" size="lg" className="mt-8"><Link to="/cursos">Ver todos os cursos <ArrowUpRight/></Link></Button></div></section>
+
+    <section className="border-y border-border"><div className="mx-auto max-w-7xl px-5 py-16 lg:px-8"><div className="flex items-end justify-between gap-5"><div><p className="text-xs font-medium uppercase text-primary">Galeria</p><h2 className="mt-3 text-4xl">Uma seleção editorial.</h2></div><Button asChild variant="quiet"><Link to="/galeria">Ver galeria</Link></Button></div><div className="mt-8 grid auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[220px] md:grid-cols-4"><img src={heroAsset.url} alt="Detalhe de manicure natural" loading="lazy" className="col-span-2 row-span-2 h-full w-full object-cover"/><img src={browAsset.url} alt="Detalhe de sobrancelha" loading="lazy" className="row-span-2 h-full w-full object-cover"/><img src={spaAsset.url} alt="Detalhe do SPA" loading="lazy" className="h-full w-full object-cover"/><img src={courseAsset.url} alt="Detalhe de formação" loading="lazy" className="h-full w-full object-cover"/></div></div></section>
+
+    <section className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-12 lg:px-8 lg:py-24"><div className="md:col-span-5"><p className="text-xs font-medium uppercase text-primary">Sobre Tamires</p><h2 className="mt-4 text-5xl">Profissionalismo com presença humana.</h2><span className="mt-5 inline-flex border border-primary px-3 py-1 text-xs font-medium uppercase text-primary">Conteúdo a confirmar</span></div><div className="md:col-span-7"><p className="max-w-2xl text-lg leading-8 text-muted-foreground">A apresentação, a experiência e as especializações de Tamires serão inseridas aqui quando as informações reais forem fornecidas. A estrutura já está pronta, sem fatos presumidos.</p><Button asChild variant="quiet" size="lg" className="mt-8"><Link to="/sobre">Conhecer a apresentação</Link></Button></div></section>
+
+    <section className="bg-primary text-primary-foreground"><div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-14 md:grid-cols-[minmax(0,1fr)_auto] lg:px-8"><div><p className="text-xs font-medium uppercase text-primary-foreground/70">Agendamento</p><h2 className="mt-3 text-4xl md:text-5xl">Seu próximo momento de cuidado começa aqui.</h2></div><Button asChild variant="editorial" size="lg"><Link to="/agendar">Agendar meu horário <ArrowUpRight/></Link></Button></div></section>
+  </main>;
 }
+
+function Pillar({icon,title,text}:{icon:React.ReactNode;title:string;text:string}) { return <div className="border-t border-border pt-5"><span className="text-primary [&>svg]:size-5">{icon}</span><h3 className="mt-4 font-sans text-base font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></div>; }

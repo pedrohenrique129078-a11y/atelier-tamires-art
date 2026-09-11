@@ -14,7 +14,289 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      availability_slots: {
+        Row: {
+          attendance_mode: Database["public"]["Enums"]["attendance_mode"] | null
+          available: boolean
+          created_at: string
+          duration_minutes: number
+          held_until: string | null
+          id: string
+          starts_at: string
+          updated_at: string
+        }
+        Insert: {
+          attendance_mode?:
+            | Database["public"]["Enums"]["attendance_mode"]
+            | null
+          available?: boolean
+          created_at?: string
+          duration_minutes: number
+          held_until?: string | null
+          id?: string
+          starts_at: string
+          updated_at?: string
+        }
+        Update: {
+          attendance_mode?:
+            | Database["public"]["Enums"]["attendance_mode"]
+            | null
+          available?: boolean
+          created_at?: string
+          duration_minutes?: number
+          held_until?: string | null
+          id?: string
+          starts_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      bookings: {
+        Row: {
+          attendance_mode: Database["public"]["Enums"]["attendance_mode"]
+          city: string | null
+          client_email: string | null
+          client_name: string
+          client_phone: string
+          complement: string | null
+          course_id: string | null
+          created_at: string
+          id: string
+          item_name: string
+          kind: Database["public"]["Enums"]["booking_kind"]
+          location_text: string
+          neighborhood: string | null
+          payment_status: Database["public"]["Enums"]["payment_status"]
+          postal_code: string | null
+          price_cents: number | null
+          service_id: string | null
+          slot_id: string
+          starts_at: string
+          state: string | null
+          status: Database["public"]["Enums"]["booking_status"]
+          street: string | null
+          street_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          attendance_mode: Database["public"]["Enums"]["attendance_mode"]
+          city?: string | null
+          client_email?: string | null
+          client_name: string
+          client_phone: string
+          complement?: string | null
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          item_name: string
+          kind: Database["public"]["Enums"]["booking_kind"]
+          location_text: string
+          neighborhood?: string | null
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          postal_code?: string | null
+          price_cents?: number | null
+          service_id?: string | null
+          slot_id: string
+          starts_at: string
+          state?: string | null
+          status?: Database["public"]["Enums"]["booking_status"]
+          street?: string | null
+          street_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          attendance_mode?: Database["public"]["Enums"]["attendance_mode"]
+          city?: string | null
+          client_email?: string | null
+          client_name?: string
+          client_phone?: string
+          complement?: string | null
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          item_name?: string
+          kind?: Database["public"]["Enums"]["booking_kind"]
+          location_text?: string
+          neighborhood?: string | null
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          postal_code?: string | null
+          price_cents?: number | null
+          service_id?: string | null
+          slot_id?: string
+          starts_at?: string
+          state?: string | null
+          status?: Database["public"]["Enums"]["booking_status"]
+          street?: string | null
+          street_number?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_slot_id_fkey"
+            columns: ["slot_id"]
+            isOneToOne: false
+            referencedRelation: "availability_slots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      categories: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string | null
+          featured: boolean
+          id: string
+          image_url: string | null
+          name: string
+          position: number
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name: string
+          position?: number
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name?: string
+          position?: number
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      courses: {
+        Row: {
+          active: boolean
+          attendance_mode: string
+          availability_notes: string | null
+          created_at: string
+          description: string
+          duration_text: string | null
+          id: string
+          image_url: string | null
+          name: string
+          position: number
+          price_cents: number | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          attendance_mode?: string
+          availability_notes?: string | null
+          created_at?: string
+          description: string
+          duration_text?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          position?: number
+          price_cents?: number | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          attendance_mode?: string
+          availability_notes?: string | null
+          created_at?: string
+          description?: string
+          duration_text?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          position?: number
+          price_cents?: number | null
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean
+          attendance_modes: Database["public"]["Enums"]["attendance_mode"][]
+          availability_notes: string | null
+          category_id: string
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          image_url: string | null
+          name: string
+          position: number
+          price_cents: number | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          attendance_modes?: Database["public"]["Enums"]["attendance_mode"][]
+          availability_notes?: string | null
+          category_id: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          image_url?: string | null
+          name: string
+          position?: number
+          price_cents?: number | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          attendance_modes?: Database["public"]["Enums"]["attendance_mode"][]
+          availability_notes?: string | null
+          category_id?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          position?: number
+          price_cents?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "services_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +305,19 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      attendance_mode: "ESTABELECIMENTO" | "DOMICILIAR"
+      booking_kind: "SERVICO" | "CURSO"
+      booking_status:
+        | "PENDENTE"
+        | "AGUARDANDO_PAGAMENTO"
+        | "COMPROVANTE_ENVIADO"
+        | "CONFIRMADO"
+        | "CANCELADO"
+        | "CONCLUIDO"
+      payment_status:
+        | "AGUARDANDO_CONFIRMACAO"
+        | "COMPROVANTE_ENVIADO"
+        | "CONFIRMADO"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +444,22 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      attendance_mode: ["ESTABELECIMENTO", "DOMICILIAR"],
+      booking_kind: ["SERVICO", "CURSO"],
+      booking_status: [
+        "PENDENTE",
+        "AGUARDANDO_PAGAMENTO",
+        "COMPROVANTE_ENVIADO",
+        "CONFIRMADO",
+        "CANCELADO",
+        "CONCLUIDO",
+      ],
+      payment_status: [
+        "AGUARDANDO_CONFIRMACAO",
+        "COMPROVANTE_ENVIADO",
+        "CONFIRMADO",
+      ],
+    },
   },
 } as const

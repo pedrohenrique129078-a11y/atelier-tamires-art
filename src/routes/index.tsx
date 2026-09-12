@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Crosshair, Heart, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories, courses } from "@/lib/site-data";
 import heroAsset from "@/assets/tamires-hero.jpg.asset.json";
@@ -19,7 +19,7 @@ function HomePage() {
       <div className="order-1 md:order-2 md:col-span-7"><img src={heroAsset.url} alt="Mãos com manicure natural em composição editorial" width={1280} height={1024} fetchPriority="high" className="aspect-[5/4] w-full object-cover"/></div>
     </section>
 
-    <section className="border-y border-border"><div className="mx-auto grid max-w-7xl gap-9 px-5 py-12 md:grid-cols-12 lg:px-8"><div className="md:col-span-5"><p className="text-xs font-medium uppercase text-primary">Além do procedimento</p><h2 className="mt-4 text-4xl leading-tight">Uma experiência pensada do primeiro contato ao último detalhe.</h2></div><div className="grid gap-6 sm:grid-cols-2 md:col-span-7"><Pillar icon={<Heart/>} title="Cuidado" text="Atendimento atento às escolhas e necessidades de cada cliente."/><Pillar icon={<Crosshair/>} title="Precisão" text="Cada etapa é conduzida com atenção e organização."/><Pillar icon={<ShieldCheck/>} title="Qualidade" text="Uma estrutura preparada para informações reais e transparentes."/><Pillar icon={<Sparkles/>} title="Experiência" text="Do agendamento ao atendimento, tudo permanece claro e acolhedor."/></div></div></section>
+    
 
     <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24"><div className="grid gap-10 md:grid-cols-12"><div className="md:col-span-4"><p className="text-xs font-medium uppercase text-primary">Serviços</p><h2 className="mt-4 text-4xl md:text-5xl">Um cuidado para cada momento.</h2><p className="mt-5 leading-7 text-muted-foreground">Cinco áreas organizadas para receber o catálogo real de serviços, valores e durações.</p></div><div className="grid gap-px bg-border sm:grid-cols-2 md:col-span-8">{categories.map((category,index)=><Link key={category.slug} to="/agendar" search={{tipo:"servico",categoria:category.slug}} className={`${index===0?"sm:col-span-2 bg-secondary/50":"bg-background"} group min-h-44 p-6 hover:bg-secondary/30`}><span className="text-xs text-primary">0{index+1}</span><h3 className="mt-6 text-2xl">{category.name}</h3><p className="mt-3 max-w-sm text-sm text-muted-foreground">{category.description}</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-medium">Ver serviços <ArrowUpRight className="size-4 transition group-hover:translate-x-1"/></span></Link>)}</div></div></section>
 

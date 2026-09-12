@@ -35,4 +35,3 @@ function HomePage() {
   </main>;
 }
 
-function Pillar({icon,title,text}:{icon:React.ReactNode;title:string;text:string}) { return <div className="border-t border-border pt-5"><span className="text-primary [&>svg]:size-5">{icon}</span><h3 className="mt-4 font-sans text-base font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></div>; }
